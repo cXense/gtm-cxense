@@ -264,6 +264,13 @@ ___TEMPLATE_PARAMETERS___
         "displayName": "Tinypass compatibility mode",
         "simpleValueType": true,
         "help": "Set parameters as JSON to work with tinypass.js properly. For example: `{ c1x: { wait: 3000 } }`"
+      },
+      {
+        "type": "CHECKBOX",
+        "name": "activityEvents",
+        "checkboxText": "Turn on activity events?",
+        "simpleValueType": true,
+        "defaultValue": false
       }
     ],
     "help": "Advanced options for controlling the cx.js script"
@@ -303,8 +310,13 @@ var cX = { options: {
   customParameters: data.customParameters,
   externalIds: externalIds(),
   cookieSyncs: cookieSyncs(),
-  customEventAttributes: { origin: data.origin, persistedQueryId: data.eventPersistedQueryId }
+  customEventAttributes: { origin: data.origin, persistedQueryId: data.eventPersistedQueryId },
+  activityEvents: data.activityEvents
 }, callQueue: [] };
+
+if (data.compat) {
+   cX.options.compat = JSON.parse(data.compat);
+}
 
 
 if (queryPermission('access_globals', 'readwrite', 'cX')) {
@@ -441,6 +453,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 5/4/2021, 1:59:25 PM
+Created on 5/4/2021, 3:06:24 PM
 
 
