@@ -13,10 +13,11 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Cxense",
+  "displayName": "Cxense by Piano",
   "brand": {
     "id": "brand_dummy",
-    "displayName": ""
+    "displayName": "",
+    "thumbnail": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAABaUExURQAAABAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIBAYIP///xf/8MAAAAAcdFJOUwAACBQdFU6NutPeb834AUDC/ANf5u9BFsH9zByBKasIAAAAAWJLR0Qd6wNxkQAAAAlwSFlzAAG66gABuuoBwfE59QAAAAd0SU1FB+ELFwsrEiJOX3AAAABPelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeJzjyiwoSeZSAAMjCy5jCxMjE0uTFAMTIESANMNkAyOzVCDL2NTIxMzEHMQHy4BIoEouACiVDuMqIm0fAAAAs0lEQVQ4y5WTWRKDIBAFHVAWETdwn/ufM5iYiqVQY/qXrgfMkmV/AMB4nnMGED8thFS6LLWSorg54dhUFg9sZS4K1E3b4YmubeqTAb3zeMG7Hn75bsAbg/veAjB6jODHw4BpxijzBJ8As8SFxbwjYFoxwbpHAAibEqwIEQASk8hdYCotKBYErtOC5kHYyrRQbk8E8grykeQ3qUKRpaabRbabHhhy5OihpceeXhx69R4sb4oXI0VDcdpPfeEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMTEtMjNUMTE6NDM6MTgrMDE6MDAMXydKAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTExLTIzVDExOjQzOjE4KzAxOjAwfQKf9gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII\u003d"
   },
   "description": "Configure Cxense services for page view collection and other features.",
   "containerContexts": [
@@ -30,8 +31,13 @@ ___TEMPLATE_PARAMETERS___
 [
   {
     "type": "LABEL",
+    "name": "docs",
+    "displayName": "\u003ca href\u003d\"https://docs.piano.io\"\u003eDocumentation\u003c/a\u003e"
+  },
+  {
+    "type": "LABEL",
     "name": "generalOptions",
-    "displayName": "General Options"
+    "displayName": "\u003cstrong\u003eGeneral options\u003c/strong\u003e"
   },
   {
     "type": "TEXT",
@@ -41,174 +47,226 @@ ___TEMPLATE_PARAMETERS___
     "notSetText": "The site ID is required.",
     "valueValidators": [
       {
-        "type": "NON_EMPTY"
-      },
-      {
         "type": "STRING_LENGTH",
         "args": [
-          19
+          15,
+          30
         ]
+      },
+      {
+        "type": "NON_EMPTY"
       }
-    ]
+    ],
+    "help": "Supply a site ID. This is a required field."
   },
   {
     "type": "CHECKBOX",
     "name": "pageView",
     "checkboxText": "Run a page view event?",
     "simpleValueType": true,
-    "defaultValue": true
+    "defaultValue": true,
+    "help": "Execute a page view. It is recommended to do this for every page in normal cases. Turn this off if there is a specific need to not track page views."
   },
   {
     "type": "CHECKBOX",
     "name": "thirdPartyIds",
-    "checkboxText": "Use Third Party IDs?",
+    "checkboxText": "Use third party IDs?",
     "simpleValueType": true,
-    "defaultValue": true
+    "defaultValue": true,
+    "help": "Turn off if you do not need to do cross-site tracking. If turned off, no third-party IDs will be set on cxense.com and first-page views will be slightly faster."
   },
   {
     "type": "CHECKBOX",
     "name": "tcf20",
-    "checkboxText": "Use TCF 2.0 Consents?",
-    "simpleValueType": true
+    "checkboxText": "Use TCF 2.0 consents?",
+    "simpleValueType": true,
+    "help": "If you have a TCF 2.0 compatible CMP, then cx.js can interact with it, with this option turned on. When this option is selected, the `Turn on consent feature?` option will be also turned on, regardless of what is set in that option."
   },
   {
     "type": "CHECKBOX",
     "name": "consent",
-    "checkboxText": "Turn On Consent Feature?",
-    "simpleValueType": true
-  },
-  {
-    "type": "LABEL",
-    "name": "userProvidedInformation",
-    "displayName": "User-Provided Information For Page Views"
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "customParameters",
-    "displayName": "Custom Parameters",
-    "paramTableColumns": [
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "name",
-          "displayName": "Name",
-          "simpleValueType": true
-        },
-        "isUnique": false
-      },
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "value",
-          "displayName": "Value",
-          "simpleValueType": true
-        },
-        "isUnique": true
-      }
-    ]
-  },
-  {
-    "type": "PARAM_TABLE",
-    "name": "externalIds",
-    "displayName": "External IDs",
-    "paramTableColumns": [
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "type",
-          "displayName": "Type",
-          "simpleValueType": true
-        },
-        "isUnique": false
-      },
-      {
-        "param": {
-          "type": "TEXT",
-          "name": "id",
-          "displayName": "ID",
-          "simpleValueType": true
-        },
-        "isUnique": false
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "segments",
-    "displayName": "Segments",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Persisted Query ID",
-        "name": "persistedQueryId",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Segment callback",
-        "name": "callback",
-        "type": "TEXT"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "cookieSyncs",
-    "displayName": "Cookie Syncs",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Partner",
-        "name": "partner",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Customer ID",
-        "name": "customerId",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Parameters",
-        "name": "params",
-        "type": "TEXT"
-      }
-    ]
-  },
-  {
-    "type": "LABEL",
-    "name": "advanced",
-    "displayName": "Advanced Configuration"
-  },
-  {
-    "type": "TEXT",
-    "name": "randomId",
-    "displayName": "Random ID",
+    "checkboxText": "Turn on consent feature?",
     "simpleValueType": true,
-    "defaultValue": "{{Random Number}}"
-  },
-  {
-    "type": "TEXT",
-    "name": "compat",
-    "displayName": "Tinypass Compatibility Parameters",
-    "simpleValueType": true
-  },
-  {
-    "type": "TEXT",
-    "name": "cxjsUrl",
-    "displayName": "Custom cx.js URL",
-    "simpleValueType": true,
-    "valueValidators": [
+    "help": "Turn on GDPR features.",
+    "enablingConditions": [
       {
-        "type": "REGEX",
-        "args": [
-          "/((([A-Za-z]{3,9}:(?:\\/\\/)?)(?:[\\-;:\u0026\u003d\\+\\$,\\w]+@)?[A-Za-z0-9\\.\\-]+|(?:www\\.|[\\-;:\u0026\u003d\\+\\$,\\w]+@)[A-Za-z0-9\\.\\-]+)((?:\\/[\\+~%\\/\\.\\w\\-_]*)?\\??(?:[\\-\\+\u003d\u0026;%@\\.\\w_]*)#?(?:[\\.\\!\\/\\\\\\w]*))?)/"
+        "paramName": "tcf20",
+        "paramValue": true,
+        "type": "NOT_EQUALS"
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "featureConfiguration",
+    "displayName": "Feature configuration",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "PARAM_TABLE",
+        "name": "externalIds",
+        "displayName": "External IDs",
+        "paramTableColumns": [
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "type",
+              "displayName": "Type",
+              "simpleValueType": true
+            },
+            "isUnique": false
+          },
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "id",
+              "displayName": "ID",
+              "simpleValueType": true
+            },
+            "isUnique": false
+          }
         ],
-        "errorMessage": "Not a valid URL"
+        "help": "",
+        "newRowButtonText": "New external ID",
+        "editRowTitle": "Edit external ID",
+        "newRowTitle": "New external ID"
+      },
+      {
+        "type": "PARAM_TABLE",
+        "name": "customParameters",
+        "displayName": "Custom parameters",
+        "paramTableColumns": [
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "name",
+              "displayName": "Name",
+              "simpleValueType": true
+            },
+            "isUnique": true
+          },
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "value",
+              "displayName": "Value",
+              "simpleValueType": true
+            },
+            "isUnique": false
+          }
+        ],
+        "editRowTitle": "Edit custom parameter",
+        "newRowButtonText": "New custom parameter",
+        "newRowTitle": "New custom parameter"
+      },
+      {
+        "type": "PARAM_TABLE",
+        "name": "segments",
+        "displayName": "Segment ID lookups",
+        "paramTableColumns": [
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "persistedQueryId",
+              "displayName": "Persisted query ID",
+              "simpleValueType": true
+            },
+            "isUnique": true
+          }
+        ],
+        "editRowTitle": "Edit segment ID lookup",
+        "newRowButtonText": "New segment ID lookup",
+        "newRowTitle": "New segment ID lookup"
+      },
+      {
+        "type": "PARAM_TABLE",
+        "name": "cookieSyncs",
+        "displayName": "Cookie syncs",
+        "paramTableColumns": [
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "partner",
+              "displayName": "Partner",
+              "simpleValueType": true
+            },
+            "isUnique": true
+          },
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "customerId",
+              "displayName": "Customer ID",
+              "simpleValueType": true,
+              "canBeEmptyString": false
+            },
+            "isUnique": false
+          },
+          {
+            "param": {
+              "type": "TEXT",
+              "name": "params",
+              "displayName": "Parameters",
+              "simpleValueType": true,
+              "canBeEmptyString": false,
+              "help": "Supply JSON parameters for the related ad provider."
+            },
+            "isUnique": false
+          }
+        ],
+        "editRowTitle": "Edit cookie sync",
+        "newRowButtonText": "New cookie sync",
+        "newRowTitle": "New cookie sync"
+      },
+      {
+        "type": "GROUP",
+        "name": "eventAttributes",
+        "displayName": "Custom event attributes",
+        "groupStyle": "ZIPPY_OPEN",
+        "subParams": [
+          {
+            "type": "TEXT",
+            "name": "origin",
+            "displayName": "Origin",
+            "simpleValueType": true,
+            "help": "Supply an origin with your assigned prefix. Ex: abc-cce"
+          },
+          {
+            "type": "TEXT",
+            "name": "eventPersistedQueryId",
+            "displayName": "Persisted query ID",
+            "simpleValueType": true,
+            "help": "Supply a persisted query ID. Not required.",
+            "canBeEmptyString": false
+          }
+        ],
+        "help": "Set event attributes for custom events."
       }
     ],
-    "canBeEmptyString": true
+    "help": "Set custom parameters, external IDs, cookie syncs and segment ID lookups"
+  },
+  {
+    "type": "GROUP",
+    "name": "misc",
+    "displayName": "Miscellaneous options",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "randomId",
+        "displayName": "Random ID",
+        "simpleValueType": true,
+        "help": "Only set this if you need a random identifier for page views earlier than when cx.js loads (for example: having it for early ad impressions before.) This will bind the page view and subsequent events early on."
+      },
+      {
+        "type": "TEXT",
+        "name": "compat",
+        "displayName": "Tinypass compatibility mode",
+        "simpleValueType": true,
+        "help": "Set parameters as JSON to work with tinypass.js properly. For example: `{ c1x: { wait: 3000 } }`"
+      }
+    ],
+    "help": "Advanced options for controlling the cx.js script"
   }
 ]
 
@@ -221,7 +279,6 @@ const queryPermission = require('queryPermission');
 const injectScript = require('injectScript');
 const setInWindow = require('setInWindow');
 
-
 function cookieSyncs() {
   if (typeof data.cookieSyncs === "undefined") return undefined;
   
@@ -233,7 +290,6 @@ function cookieSyncs() {
   });
 }
 
-
 function externalIds() {
   if (typeof data.externalIds === "undefined") return undefined;
   
@@ -241,13 +297,13 @@ function externalIds() {
                               ({type: idType.type, id: '' + idType.id}));
 }
 
-
 var cX = { options: {
   siteId: data.siteId,
   pageView: data.pageView,
   customParameters: data.customParameters,
   externalIds: externalIds(),
-  cookieSyncs: cookieSyncs()
+  cookieSyncs: cookieSyncs(),
+  customEventAttributes: { origin: data.origin, persistedQueryId: data.eventPersistedQueryId }
 }, callQueue: [] };
 
 
@@ -255,6 +311,7 @@ if (queryPermission('access_globals', 'readwrite', 'cX')) {
   setInWindow("cX", cX, true);
 }
 
+log(data);
 const url = "https://cdn.cxense.com/cx.js";
 injectScript(url, data.gtmOnSuccess, data.gtmOnFailure, url);
 
@@ -277,6 +334,9 @@ ___WEB_PERMISSIONS___
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
@@ -381,6 +441,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 5/4/2021, 10:41:13 AM
+Created on 5/4/2021, 1:59:25 PM
 
 
